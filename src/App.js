@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
+import data from './mock-data.json'
 
 const App = () => {
+  const [contacts, setContacts] = useState(data)
   return (
     <div className='app-container'>
       <table>
@@ -14,11 +16,14 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Jenny Chan</td>
-            <td>3 waterfoot road</td>
-            <td>123-424-0987</td>
-          </tr>
+          {contacts.map((contact) => (
+            <tr key={contact.id}>
+              <td>{contact.fullName}</td>
+              <td>{contact.address}</td>
+              <td>{contact.phoneNumber}</td>
+              <td>{contact.email}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
