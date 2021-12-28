@@ -38,6 +38,7 @@ const App = () => {
     newFormData[fieldName] = fieldValue 
     setEditFormData(newFormData)
   }
+
   const handleAddFormSubmit = (e) => {
     e.preventDefault()
     const newContact = {
@@ -49,6 +50,22 @@ const App = () => {
     }
     const newContacts = [...contacts, newContact]
     setContacts(newContacts)
+  }
+
+  const handleEditFormSubmit = (e) => {
+    e.preventDefault()
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNumber: editFormData.phoneNumber,
+      email: editFormData.email
+    }
+    const newContacts= [...contacts]
+    const index = contacts.findIndex((contact) => contact.id === editContactId)
+    newContacts[index] = editedContact
+    setContacts(newContacts)
+    setEditContactId(null)
   }
   const handleEditClick = (e, contact) => {
     e.preventDefault()
@@ -64,7 +81,7 @@ const App = () => {
   }
   return (
     <div className='app-container'>
-      <form>
+      <form onSubmit={handleEditFormSubmit}>
       <table>
         <thead>
           <tr>
