@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import data from './mock-data.json'
+import { nanoid } from 'nanoid'
 
 const App = () => {
   const [contacts, setContacts] = useState(data)
@@ -19,6 +20,18 @@ const App = () => {
     newFormData[fieldName] = fieldValue
     setAddFormData(newFormData)
   }
+  const handleAddFormSubmit = (e) => {
+    e.preventDefault()
+    const newContact = {
+      id: nanoid(),
+      fullName: addFormData.fullName,
+      address: addFormData.address,
+      phoneNumber: addFormData.phoneNumber,
+      email: addFormData.email
+    }
+    const newContacts = [...contacts, newContact]
+    setContacts(newContacts)
+  }
   return (
     <div className='app-container'>
       <table>
@@ -28,6 +41,7 @@ const App = () => {
             <th>Address</th>
             <th>Phone Number</th>
             <th>Email</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -42,34 +56,34 @@ const App = () => {
         </tbody>
         </table>
         <h2>Add a contact</h2>
-        <form>
+        <form onSubmit={handleAddFormSubmit}>
           <input 
             type="text" 
             name='fullName' 
             required='required' 
             placeholder='Enter a Name...' 
-            onChange={handleAddFormChange()}
+            onChange={handleAddFormChange}
           />
           <input 
             type="text" 
             name='address' 
             required='required' 
             placeholder='Enter an Address...' 
-            onChange={handleAddFormChange()}
+            onChange={handleAddFormChange}
           />
           <input 
             type="text" 
             name='phoneNumber' 
             required='required' 
             placeholder='Enter a Phone Number...' 
-            onChange={handleAddFormChange()}
+            onChange={handleAddFormChange}
           />
           <input 
             type="text" 
             name='email' 
             required='required' 
             placeholder='Enter an Email...' 
-            onChange={handleAddFormChange()}
+            onChange={handleAddFormChange}
           />
           <button type='submit' name='submit'>Add</button>
         </form>
