@@ -3,6 +3,7 @@ import './App.css'
 import data from './mock-data.json'
 import { nanoid } from 'nanoid'
 import ReadOnlyRow from './components/ReadOnlyRow'
+import EditableRow from './components/EditableRow'
 
 const App = () => {
   const [contacts, setContacts] = useState(data)
@@ -35,6 +36,7 @@ const App = () => {
   }
   return (
     <div className='app-container'>
+      <form>
       <table>
         <thead>
           <tr>
@@ -47,10 +49,14 @@ const App = () => {
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <ReadOnlyRow contact={contact} />
+            <>
+              <EditableRow />
+              <ReadOnlyRow contact={contact} />
+            </>
           ))}
         </tbody>
         </table>
+        </form>
         <h2>Add a contact</h2>
         <form onSubmit={handleAddFormSubmit}>
           <input 
@@ -59,7 +65,7 @@ const App = () => {
             required='required' 
             placeholder='Enter a Name...' 
             onChange={handleAddFormChange}
-          />
+            />
           <input 
             type="text" 
             name='address' 
