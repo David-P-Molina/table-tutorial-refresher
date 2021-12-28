@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import data from './mock-data.json'
 import { nanoid } from 'nanoid'
+import ReadOnlyRow from './components/ReadOnlyRow'
 
 const App = () => {
   const [contacts, setContacts] = useState(data)
@@ -46,12 +47,7 @@ const App = () => {
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr key={contact.id}>
-              <td>{contact.fullName}</td>
-              <td>{contact.address}</td>
-              <td>{contact.phoneNumber}</td>
-              <td>{contact.email}</td>
-            </tr>
+            <ReadOnlyRow contact={contact} />
           ))}
         </tbody>
         </table>
